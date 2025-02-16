@@ -1,0 +1,20 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY api/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy backend source
+COPY api ./api/
+COPY librechat.yaml ./
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV HOST=0.0.0.0
+
+EXPOSE 3080
+CMD ["npm", "run", "start"] 
